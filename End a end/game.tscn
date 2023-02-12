@@ -1,0 +1,109 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://sene/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://pltfrm.gd" type="Script" id=2]
+[ext_resource path="res://Jump bad.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 610, 48.5 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 20, 20 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 6, 20 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 11, 4 )
+
+[node name="game" type="Node2D"]
+position = Vector2( 64, 26 )
+
+[node name="Player" parent="." groups=["Player"] instance=ExtResource( 1 )]
+position = Vector2( 49, 472 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 419, 530 )
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+margin_left = -433.0
+margin_right = 744.0
+margin_bottom = 97.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 195, 49.5 )
+shape = SubResource( 2 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2( 473, 461 )
+scale = Vector2( 0.2, 0.32 )
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D2"]
+margin_left = -433.0
+margin_right = 744.0
+margin_bottom = 97.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2( 175, 49.5001 )
+shape = SubResource( 2 )
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2( 179, 320 )
+scale = Vector2( 0.2, 0.32 )
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D3"]
+margin_left = -433.0
+margin_right = 744.0
+margin_bottom = 97.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2( 155, 49.5002 )
+shape = SubResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 241, 399 )
+current = true
+zoom = Vector2( 0.5, 0.5 )
+
+[node name="pltfrm" type="KinematicBody2D" parent="."]
+position = Vector2( 219, 485 )
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="pltfrm"]
+margin_right = 40.0
+margin_bottom = 40.0
+color = Color( 0.568627, 0, 0, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pltfrm"]
+position = Vector2( 20, 20 )
+shape = SubResource( 3 )
+
+[node name="Area2D" type="Area2D" parent="pltfrm"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pltfrm/Area2D"]
+position = Vector2( 4, 20 )
+shape = SubResource( 4 )
+
+[node name="Area2D2" type="Area2D" parent="pltfrm"]
+position = Vector2( 32, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pltfrm/Area2D2"]
+position = Vector2( 4, 20 )
+shape = SubResource( 4 )
+
+[node name="Jump bad" type="Area2D" parent="."]
+position = Vector2( 401, 453 )
+script = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="Jump bad"]
+margin_right = 22.0
+margin_bottom = 8.0
+color = Color( 0.101961, 1, 0, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Jump bad"]
+position = Vector2( 11, 4 )
+shape = SubResource( 5 )
+
+[connection signal="body_entered" from="pltfrm/Area2D" to="pltfrm" method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="pltfrm/Area2D2" to="pltfrm" method="_on_Area2D2_body_entered"]
+[connection signal="body_entered" from="Jump bad" to="Jump bad" method="_on_Jump_bad_body_entered"]
